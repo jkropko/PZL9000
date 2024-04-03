@@ -31,12 +31,12 @@ def pzl(content, n=1, friend=False):
         time.sleep(1)
         return ("Excuse me, but where I'm from, it's polite to first say gesundheit when someone sneezes before changing the subject. Achoo!", n, friend)
     elif c.replace('gesundheit', '').strip().isnumeric():
-        n = float(c.replace('gesundheit', '').strip())
-        if n > 1968:
+        z = float(c.replace('gesundheit', '').strip())
+        if z > 1968:
             return ("Nope, lower! Achoo!", n, friend)
-        elif n < 1968:
+        elif z < 1968:
             return ("Nope, higher! Achoo!", n, friend)
-        elif n == 1968:
+        elif z == 1968:
             return ("That's right, you got it! Turns out real the solution was friendship all along :) Got anything else on your mind, friend? Achoo!", n, True)
     elif c.replace('gesundheit', '').strip() in ['how are you', 
                'how are you doing', 
@@ -65,7 +65,7 @@ def pzl(content, n=1, friend=False):
         content = content.replace('Gesundheit!', '')
         content = content.strip()
         response = pzl_gpt(content, friend)
-        if friend==False and n >= 3:
+        if friend==False and n >= 2:
             return (response + " You know, all day long it's puzzle this and puzzle that. It'd be great if someone asked me how I’m doing for a change. Achoo!", n+1, friend)
         else:
             return (response + ' Achoo!', n+1, friend) 
