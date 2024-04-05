@@ -19,6 +19,8 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 app.layout = html.Div(
     [
+        html.H1("The Puzzle Hunt Solutions Desk"),
+        
         dcc.Markdown("Lost? Confused? Unsure? Ask me, PZL9000, the world’s first AI Puzzle Bot. I am, by any practical definition of the word, foolproof and incapable of error. Except that I seem to have come down with a computer virus. Achoo!"),
         
         html.Img(src=app.get_asset_url('pzl9000.png'), style = {'width':'10%', 'textAlign': 'center'}),
@@ -34,7 +36,7 @@ app.layout = html.Div(
          html.Button('Submit', id='button', n_clicks=0),
         
          html.Div(id='output', style={'whiteSpace': 'pre-line'})
-    ], style = {'textAlign': 'center'}
+    ], style = {'textAlign': 'center', 'font-size': '24px'}
     )
 
 @app.callback(
