@@ -35,13 +35,16 @@ def pzl(content, n=1, friend=False):
     elif c.replace('gesundheit', '').strip().isnumeric():
         z = float(c.replace('gesundheit', '').strip())
         if z > 1968:
+            time.sleep(1)
             return ("Nope, lower! Achoo!", n, friend)
         elif z < 1968:
+            time.sleep(1)
             return ("Nope, higher! Achoo!", n, friend)
         elif z == 1968:
+            time.sleep(1)
             return ("That's right, you got it! Turns out real the solution was friendship all along :) Got anything else on your mind, friend? Achoo!", n, True)
-    elif c.replace('gesundheit', '').strip() in ['how are you', 
-               'how are you doing', 
+    elif c.replace('gesundheit', '').strip() in ['how are you',
+               'how are you doing',
                'hows it going',
                'howve you been',
                'are you ok']:
@@ -70,4 +73,4 @@ def pzl(content, n=1, friend=False):
         if friend==False and n >= 2:
             return (response + " You know, all day long it's puzzle this and puzzle that. It'd be great if someone asked me how I’m doing for a change. Achoo!", n+1, friend)
         else:
-            return (response + ' Achoo!', n+1, friend) 
+            return (response + ' Achoo!', n+1, friend)

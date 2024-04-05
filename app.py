@@ -19,28 +19,37 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 app.layout = html.Div(
     [
-        html.H1("The Puzzle Hunt Solutions Desk"),
-        
+        html.H1("The Puzzle Hunt Solutions Desk", style={'font-size': '60px'}),
+
         dcc.Markdown("Lost? Confused? Unsure? Ask me, PZL9000, the world’s first AI Puzzle Bot. I am, by any practical definition of the word, foolproof and incapable of error. Except that I seem to have come down with a computer virus. Achoo!"),
-        
-        html.Img(src=app.get_asset_url('pzl9000.png'), style = {'width':'10%', 'textAlign': 'center'}),
-        
+
+        html.Img(src=app.get_asset_url('pzl9000.png'), style = {'width':'20%', 'textAlign': 'center'}),
+
          dcc.Store(id='friend', storage_type='local', clear_data=True),
-        
+
          dcc.Store(id='n', storage_type='session', clear_data=True),
-        
-         dcc.Textarea(id="input", 
-                       value="Type your question for PZL9000 here", 
+
+         dcc.Textarea(id="input",
+                       value="Type your question for PZL9000 here",
                        style={'width': '100%', 'height': 100}),
-    
-         html.Button('Submit', id='button', n_clicks=0),
-        
+
+         html.Button('Submit', id='button', n_clicks=0, style={'fontSize': '36px'}),
+
+         html.Div(id='load'),
+
          html.Div(id='output', style={'whiteSpace': 'pre-line'})
-    ], style = {'textAlign': 'center', 'font-size': '24px'}
+    ], style = {'textAlign': 'center', 'font-size': '48px'}
     )
 
+@app.callback(Output('load', 'children'),
+              [Input('button', 'n_clicks')])
+
+def prepare_data(n_clicks):
+    if n_clicks>0:
+        return html.Div([dcc.Markdown('')], id='output')
+
 @app.callback(
-    [Output('output', 'children'), 
+    [Output('output', 'children'),
      Output('n', 'data'),
      Output('friend', 'data')],
     [Input('button', 'n_clicks')],
@@ -51,12 +60,17 @@ app.layout = html.Div(
 
 def update_output(n_clicks, value, n, friend):
     if value=='Type your question for PZL9000 here':
-        response = 'What do you want? Achoo!'
+        response = ''
+        new_n = 0
+        new_friend = False
+        result = (response, new_n, new_friend)
+    elif value=='':
+        response = ''
         new_n = 0
         new_friend = False
         result = (response, new_n, new_friend)
     elif value.lower().strip() in ['gesundheit', 'bless you', 'god bless you']:
-        response = 'Thanks. Achoo!'
+        response = 'Thanks. I mean, you can still talk to me. Just be polite and say gesundheit or bless you first. Achoo!'
         new_n = 0
         new_friend = False
         result = (response, new_n, new_friend)
@@ -69,10 +83,3 @@ def update_output(n_clicks, value, n, friend):
 
 if __name__ == '__main__':
     app.run_server(debug=True, port=8050)
-
-
-
-
-
-
-    
