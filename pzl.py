@@ -27,9 +27,11 @@ def pzl(content, n=1, friend=False):
     c = content.lower()
     c = c.strip()
     c = c.translate(c.maketrans('', '', string.punctuation))
+    c = c.replace('god bless you', 'gesundheit')
+    c = c.replace('bless you', 'gesundheit')
     if c[0:10]!='gesundheit':
         time.sleep(1)
-        return ("Excuse me, but where I'm from, it's polite to first say gesundheit when someone sneezes before changing the subject. Achoo!", n, friend)
+        return ("Excuse me, but where I'm from, it's polite to first say gesundheit or bless you when someone sneezes before changing the subject. Achoo!", n, friend)
     elif c.replace('gesundheit', '').strip().isnumeric():
         z = float(c.replace('gesundheit', '').strip())
         if z > 1968:

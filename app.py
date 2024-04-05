@@ -19,25 +19,22 @@ app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
 
 app.layout = html.Div(
     [
-     html.Div(
-         [
-             html.Img(src=app.get_asset_url('pzl9000.png'), 
-                      style = {'width':'20%', 'float':'left'}),
-             dcc.Store(id='friend', 
-                       storage_type='local', 
-                       clear_data=True),
-             dcc.Store(id='n', 
-                       storage_type='session', 
-                       clear_data=True)
-         ]),
-     html.Div([
-         dcc.Markdown("Lost? Confused? Unsure? Ask me, PZL9000, the world’s first AI Puzzle Bot. I am, by any practical definition of the word, foolproof and incapable of error. Except that I seem to have come down with a computer virus. Achoo!"),
+        dcc.Markdown("Lost? Confused? Unsure? Ask me, PZL9000, the world’s first AI Puzzle Bot. I am, by any practical definition of the word, foolproof and incapable of error. Except that I seem to have come down with a computer virus. Achoo!"),
+        
+        html.Img(src=app.get_asset_url('pzl9000.png'), style = {'width':'10%', 'textAlign': 'center'}),
+        
+         dcc.Store(id='friend', storage_type='local', clear_data=True),
+        
+         dcc.Store(id='n', storage_type='session', clear_data=True),
+        
          dcc.Textarea(id="input", 
-                   value="Hello", 
-                   style={'width': '100%', 'height': 100}),
+                       value="Type your question for PZL9000 here", 
+                       style={'width': '100%', 'height': 100}),
+    
          html.Button('Submit', id='button', n_clicks=0),
+        
          html.Div(id='output', style={'whiteSpace': 'pre-line'})
-     ], style = {'width':'78%', 'float':'right'})]
+    ], style = {'textAlign': 'center'}
     )
 
 @app.callback(
@@ -51,8 +48,13 @@ app.layout = html.Div(
 )
 
 def update_output(n_clicks, value, n, friend):
-    if value=='Hello':
+    if value=='Type your question for PZL9000 here':
         response = 'What do you want? Achoo!'
+        new_n = 0
+        new_friend = False
+        result = (response, new_n, new_friend)
+    elif value.lower().strip() in ['gesundheit', 'bless you', 'god bless you']:
+        response = 'Thanks. Achoo!'
         new_n = 0
         new_friend = False
         result = (response, new_n, new_friend)
