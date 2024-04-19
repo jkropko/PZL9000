@@ -16,6 +16,7 @@ external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 
 
 app = dash.Dash(__name__, external_stylesheets=external_stylesheets)
+app.title = 'PZL9000'
 
 app.layout = html.Div(
     [
@@ -35,18 +36,18 @@ app.layout = html.Div(
 
          html.Button('Submit', id='button', n_clicks=0, style={'fontSize': '36px'}),
 
-         html.Div(id='load'),
+#         html.Div(id='load'),
 
-         html.Div(id='output', style={'whiteSpace': 'pre-line'})
+         html.Div(id='output')
     ], style = {'textAlign': 'center', 'font-size': '48px'}
     )
 
-@app.callback(Output('load', 'children'),
-              [Input('button', 'n_clicks')])
+#@app.callback(Output('load', 'children'),
+#              [Input('button', 'n_clicks')])
 
-def prepare_data(n_clicks):
-    if n_clicks>0:
-        return html.Div([dcc.Markdown('')], id='output')
+#def prepare_data(n_clicks):
+#    if n_clicks>0:
+#        return html.Div([dcc.Markdown('')], id='output')
 
 @app.callback(
     [Output('output', 'children'),
@@ -60,7 +61,7 @@ def prepare_data(n_clicks):
 
 def update_output(n_clicks, value, n, friend):
     if value=='Type your question for PZL9000 here':
-        response = ''
+        response = 'What do you want?'
         new_n = 0
         new_friend = False
         result = (response, new_n, new_friend)
@@ -70,7 +71,7 @@ def update_output(n_clicks, value, n, friend):
         new_friend = False
         result = (response, new_n, new_friend)
     elif value.lower().strip() in ['gesundheit', 'bless you', 'god bless you']:
-        response = 'Thanks. I mean, you can still talk to me. Just be polite and say gesundheit or bless you first. Achoo!'
+        response = 'Thanks. I mean, you can still talk to me. Just be polite and say gesundheit or bless you before asking your question. Achoo!'
         new_n = 0
         new_friend = False
         result = (response, new_n, new_friend)
@@ -82,4 +83,4 @@ def update_output(n_clicks, value, n, friend):
     return [response, new_n, new_friend]
 
 if __name__ == '__main__':
-    app.run_server(debug=True, port=8050)
+    app.run_server(debug=False, use_reloader=False, port=8050)

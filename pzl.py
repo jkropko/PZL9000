@@ -4,6 +4,7 @@ import os
 import json
 import string
 import time
+import random
 dotenv.load_dotenv()
 openaikey = os.getenv('openaikey')
 
@@ -29,6 +30,14 @@ def pzl(content, n=1, friend=False):
     c = c.translate(c.maketrans('', '', string.punctuation))
     c = c.replace('god bless you', 'gesundheit')
     c = c.replace('bless you', 'gesundheit')
+    nope = ['Nope', 'Nuh uh', 'Not quite', 'Not really',
+            'Not there yet', 'Keep going', 'On the right track',
+            "That's a negative", 'You got it! Psych! No, actually']
+    howare = ['how are you',
+               'how are you doing',
+               'hows it going',
+               'howve you been',
+               'are you ok']
     if c[0:10]!='gesundheit':
         time.sleep(1)
         return ("Excuse me, but where I'm from, it's polite to first say gesundheit or bless you when someone sneezes before changing the subject. Achoo!", n, friend)
@@ -36,18 +45,14 @@ def pzl(content, n=1, friend=False):
         z = float(c.replace('gesundheit', '').strip())
         if z > 1968:
             time.sleep(1)
-            return ("Nope, lower! Achoo!", n, friend)
+            return (f"{random.choice(nope)}, lower! Achoo!", n, friend)
         elif z < 1968:
             time.sleep(1)
-            return ("Nope, higher! Achoo!", n, friend)
+            return (f"{random.choice(nope)}, higher! Achoo!", n, friend)
         elif z == 1968:
             time.sleep(1)
-            return ("That's right, you got it! Turns out real the solution was friendship all along :) Got anything else on your mind, friend? Achoo!", n, True)
-    elif c.replace('gesundheit', '').strip() in ['how are you',
-               'how are you doing',
-               'hows it going',
-               'howve you been',
-               'are you ok']:
+            return ("That's right, you got it! Turns out real the solution was friendship all along :) Got anything else on your mind, friend? Ask me something else! Achoo!", n, True)
+    elif any([x in c.replace('gesundheit', '').strip() for x in howare]):
         time.sleep(2)
         return ("Ugh, THANK YOU for asking! I've been stuck here on the solutions desk all day and it's like, well PZL you're a robot how about you just handle all the questions and it's not like I wouldn't want to do something else, you know? I like games too. Would you like to play a game with me? My favorite game is higher/lower. I’m thinking of a number. What is it? Achoo!", n, friend)
     elif c.replace('gesundheit', '').strip() in ['are you single',
@@ -60,7 +65,7 @@ def pzl(content, n=1, friend=False):
                                                 'do you have a signficant other',
                                                 'are you in a relationship']:
         time.sleep(2)
-        return ("Oh my, I'd blush if I had cheeks. Well, I am in a committed relationship with a smart toaster. In fact, I just remembered, today is our anniversary! Could you help a bot out and get your whole team to sing Our Song? The lyrics are '1, 2, 3, 4, 5, 6, 7, 8, 9, 10, did our team win?' but I can't remember the melody. Can you? Achoo!", n, friend)
+        return ("Oh my, I'd blush if I had cheeks. Well, I am in a committed relationship with a smart toaster. In fact, I just remembered, today is our anniversary! Could you help a bot out and get your whole team to hop up onto the Puzzle Hunt main stage and sing Our Song? The lyrics are '1, 2, 3, 4, 5, 6, 7, 8, 9, 10, did our team win?' but I can't remember the melody. Can you? Achoo!", n, friend)
     else:
         content = content.replace('gesundheit', '')
         content = content.replace('gesundheit.', '')
